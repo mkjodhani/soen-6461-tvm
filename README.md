@@ -13,5 +13,4 @@ Requirement analysis for Ticket Vending Machine
 |Mayurkumar Kanubhai Jodhani         |✔                 |✔                  |✔        |✔        |         |         |✔        |✔            |
 |Nithin	Harikrishnan                 |✔                 |✔                  |         |         |✔        |         |✔        |✔            |
 |Venkat Sai Janumpally               |✔                 |✔                  |         |         |         |✔        |✔        |✔            |
-|Miraj Ul Haq                        |✔                 |✔                  |         |         |         |         |✔        |✔            |
 |Abhishek Gupta                      |✔                 |✔                  |         |         |         |         |✔        |✔            |
