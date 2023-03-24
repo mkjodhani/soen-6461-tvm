@@ -21,13 +21,15 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * @author mkjodhani
  * @project
  * @since 22/03/23
  */
-public class AdminController {
+public class AdminController implements Observer {
     @FXML
     private VBox customerList;
     @FXML
@@ -36,7 +38,7 @@ public class AdminController {
     private VBox ticketList;
 
     public void initialize(){
-
+        Data.getReference().addObserver(this);
         initializeCustomerList();
         initializeTicketList();
         initializeOpusList();
@@ -103,7 +105,7 @@ public class AdminController {
             ObservableList<Customer> people = FXCollections.observableArrayList(Data.getReference().getCustomerHashMap().values());
             tableView.setItems(people);
             if(customerList.getChildren().size()>0){
-                customerList.getChildren().removeAll(customerList.getChildren().get(0));
+                customerList.getChildren().removeAll(customerList.getChildren());
             }
             customerList.getChildren().add(tableView);
         }catch (Exception e){
@@ -140,7 +142,7 @@ public class AdminController {
             ObservableList<Ticket> tickets = FXCollections.observableArrayList(Data.getReference().getTicketHashMap().values());
             tableView.setItems(tickets);
             if(ticketList.getChildren().size()>0){
-                ticketList.getChildren().removeAll(ticketList.getChildren().get(0));
+                ticketList.getChildren().removeAll(ticketList.getChildren());
             }
             ticketList.getChildren().add(tableView);
         }catch (Exception e){
@@ -168,7 +170,7 @@ public class AdminController {
             ObservableList<OPUS> opuses = FXCollections.observableArrayList(Data.getReference().getOpusHashMap().values());
             tableView.setItems(opuses);
             if(opusList.getChildren().size()>0){
-                opusList.getChildren().removeAll(opusList.getChildren().get(0));
+                opusList.getChildren().removeAll(opusList.getChildren());
             }
             opusList.getChildren().add(tableView);
         }catch (Exception e){
@@ -176,4 +178,10 @@ public class AdminController {
         }
     }
 
+    @Override
+    public void update(Observable o, Object arg) {
+        initializeOpusList();
+        initializeCustomerList();
+        initializeTicketList();
+    }
 }

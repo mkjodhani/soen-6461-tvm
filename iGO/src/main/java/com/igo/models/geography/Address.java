@@ -17,28 +17,7 @@ public class Address {
         this.streetAddressNumber = streetAddressNumber;
     }
     private Address generateAddress(String street, String city, String province, String postalCode, int streetAddressNumber) {
-//        TODO validate the address
         return new Address(street,city,province,postalCode,streetAddressNumber);
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public String getProvince() {
-        return province;
-    }
-
-    public String getPostalCode() {
-        return postalCode;
-    }
-
-    public int getStreetAddressNumber() {
-        return streetAddressNumber;
     }
 
     @Override

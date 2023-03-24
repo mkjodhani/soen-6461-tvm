@@ -4,15 +4,15 @@ import com.igo.models.opus.OPUS;
 import com.igo.models.person.Customer;
 import com.igo.models.ticket.Ticket;
 
-import java.util.Date;
 import java.util.HashMap;
+import java.util.Observable;
 
 /**
  * @author mkjodhani
  * @project
  * @since 22/03/23
  */
-public class Data {
+public class Data extends Observable {
     private HashMap<Integer, Customer> customerHashMap;
     private HashMap<Integer, OPUS> opusHashMap;
     private HashMap<Integer, Ticket> ticketHashMap;
@@ -40,5 +40,10 @@ public class Data {
 
     public HashMap<Integer, Ticket> getTicketHashMap() {
         return ticketHashMap;
+    }
+
+    public void notifyAllObservers(){
+        setChanged();
+        notifyObservers();
     }
 }

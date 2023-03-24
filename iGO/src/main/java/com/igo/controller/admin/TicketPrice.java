@@ -1,5 +1,6 @@
 package com.igo.controller.admin;
 
+import com.igo.models.data.Data;
 import com.igo.models.fares.Cost;
 import com.igo.models.person.Customer;
 import javafx.event.ActionEvent;
@@ -32,6 +33,7 @@ public class TicketPrice {
         }
         double priceValue = Double.valueOf(price.getText());
         Cost.updateTicketPriceByTimePeriod(ticketType,priceValue);
+        Data.getReference().notifyAllObservers();
     }
     public void fetch(ActionEvent actionEvent) {
         Cost.PERIOD ticketType = ticketTypeComboBox.getValue();

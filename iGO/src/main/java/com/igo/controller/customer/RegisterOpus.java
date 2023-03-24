@@ -38,6 +38,7 @@ public class RegisterOpus {
             else{
                 OPUS opus = new OPUS(customer);
                 Data.getReference().getOpusHashMap().put(opus.getCardId(),opus);
+                Data.getReference().notifyAllObservers();
                 IGoApplication.showDialogBox("Success!","OPUS has been issued successfully!","You can access the OPUS by inserting #"+opus.getCardId()+" wherever required.");
             }
         }catch (Exception e){

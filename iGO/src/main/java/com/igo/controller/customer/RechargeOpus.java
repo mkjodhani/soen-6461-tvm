@@ -1,17 +1,24 @@
 package com.igo.controller.customer;
 
 import com.igo.IGoApplication;
+import com.igo.controller.admin.Payment;
 import com.igo.models.data.Data;
 import com.igo.models.fares.Cost;
 import com.igo.models.opus.OPUS;
 import com.igo.models.person.Customer;
+import com.igo.models.ticket.Ticket;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author mkjodhani
@@ -78,7 +85,7 @@ public class RechargeOpus {
         }
     }
 
-    public void rechargeOPUS(ActionEvent actionEvent) {
+    public void rechargeOPUS(ActionEvent actionEvent) throws IOException {
         int opusIDValue = Integer.parseInt(opusID.getText());
         OPUS opus = Data.getReference().getOpusHashMap().getOrDefault(opusIDValue,null);
         Customer customer = opus.getCustomer();
@@ -92,8 +99,33 @@ public class RechargeOpus {
             IGoApplication.showDialogBox("Error!","Plan can not be activated!","This plan is not provided to "+customer.getCustomerType()+".");
         }
         else {
-            opus.recharge(getRechargeType(rechargeTypeString));
-            IGoApplication.showDialogBox("Success!","Plan has been activated!","This plan provided to "+customer.getCustomerType()+".");
+            String paymentOptions[] = { "Cash","Cash less" };
+            ChoiceDialog d = new ChoiceDialog(paymentOptions[0], paymentOptions);
+            d.setHeaderText("Payment Method");
+            d.setHeaderText("Select one of the payment method");
+            Optional<String> result = d.showAndWait();
+            if ( result.isPresent() )
+            {
+                if(d.getSelectedItem().equals("Cash")){
+                    opus.recharge(getRechargeType(rechargeTypeString));
+                    IGoApplication.showDialogBox("Success!","Plan has been activated!","This plan provided to "+customer.getCustomerType()+".");
+                    Data.getReference().notifyAllObservers();
+                }
+                else {
+                    Stage stage = new Stage();
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/igo/admin/payment.fxml"));
+                    Scene scene = new Scene(fxmlLoader.load(), IGoApplication.getWidth(), IGoApplication.getHeight());
+                    Payment payment = fxmlLoader.getController();
+                    payment.setPaymentFor(Cost.TYPES.TICKET);
+                    payment.setOpusID(opus.getCardId());
+                    payment.setPeriod(getRechargeType(rechargeTypeString));
+                    stage.setTitle("Payment");
+                    stage.setScene(scene);
+                    stage.setResizable(false);
+                    stage.show();
+                    Data.getReference().notifyAllObservers();
+                }
+            }
         }
     }
 

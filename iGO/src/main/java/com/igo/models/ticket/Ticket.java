@@ -101,4 +101,7 @@ public class Ticket {
     public boolean isUsed() {
         return isUsed;
     }
+    public void scan(){
+        this.isUsed = true;
+    }
 }
