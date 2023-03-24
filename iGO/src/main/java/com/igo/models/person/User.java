@@ -1,6 +1,8 @@
 package com.igo.models.person;
 
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * @author mkjodhani
@@ -9,13 +11,16 @@ import java.util.Date;
  * @since 01/03/23
  */
 public abstract class User {
-    private String firstName,lastName,userID;
-    private Date birthDate;
+    private String firstName,lastName;
+    private int userID;
+    private LocalDate birthDate;
+    private static int totalUsers = 0;
 
-    public User(String firstName, String lastName, Date birthDate) {
+    public User(String firstName, String lastName, LocalDate birthDate) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
+        this.userID = ++totalUsers;
     }
 
     public String getFirstName() {
@@ -34,19 +39,16 @@ public abstract class User {
         this.lastName = lastName;
     }
 
-    public String getUserID() {
+    public int getUserID() {
         return userID;
     }
 
-    public void setUserID(String userID) {
-        this.userID = userID;
-    }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 }

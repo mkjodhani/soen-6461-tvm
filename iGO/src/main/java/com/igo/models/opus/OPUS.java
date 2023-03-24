@@ -1,5 +1,6 @@
 package com.igo.models.opus;
 
+import com.igo.models.data.Data;
 import com.igo.models.fares.Cost;
 import com.igo.models.person.Customer;
 
@@ -17,26 +18,35 @@ import static java.time.temporal.TemporalAdjusters.nextOrSame;
  */
 
 public class OPUS {
-    private static HashMap<Integer,OPUS> opusList = new HashMap<>();
     private static int totalOpusCards = 0;
     private int cardId;
     private Customer customer;
     private LocalDate lastRechargeDate;
     private LocalDate rechargeExpireDate;
     private Date issueDate;
+    private Cost.PERIOD currentPlan;
 
-    public OPUS generateOpusByCustomer(Customer customer) {
+    public OPUS(Customer customer) {
         this.customer = customer;
         this.cardId = ++ totalOpusCards;
         this.lastRechargeDate = null;
-
-        opusList.put(this.cardId,this);
         this.issueDate = new Date();
-        return this;
+        Data.getReference().getOpusHashMap().put(this.cardId,this);
     }
-    public static boolean isOpusExistsForUser(String userID){
-        for(OPUS opus: opusList.values()){
-            if(opus.getCustomer().getUserID().equals(userID)){
+    public static OPUS registerOpus(int userID) {
+        Customer customer = Data.getReference().getCustomerHashMap().getOrDefault(userID,null);
+        if (customer == null){
+            return null;
+        }
+        else if(isOpusExistsForUser(userID)){
+            return null;
+        }
+        OPUS opus = new OPUS(customer);
+        return opus;
+    }
+    public static boolean isOpusExistsForUser(int userID){
+        for(OPUS opus: Data.getReference().getOpusHashMap().values()){
+            if(opus.getCustomer().getUserID() == userID){
                 return true;
             }
         }
@@ -45,6 +55,7 @@ public class OPUS {
 
     public void recharge(Cost.PERIOD timePeriod){
         LocalDate today = LocalDate.now();
+        currentPlan = timePeriod;
         this.lastRechargeDate = LocalDate.now();
         switch (timePeriod){
             case ONE_WEEK:
@@ -71,19 +82,29 @@ public class OPUS {
         return customer;
     }
 
-    public LocalDate getLastRechargeDate() {
-        return lastRechargeDate;
-    }
-
-    public LocalDate getRechargeExpireDate() {
-        return rechargeExpireDate;
-    }
-
-    public Date getIssueDate() {
-        return issueDate;
-    }
-
     public int getCardId() {
         return cardId;
+    }
+
+    public String getLastRechargeDate() {
+        if (lastRechargeDate == null){
+            return "";
+        }
+        return lastRechargeDate.toString();
+    }
+
+    public String getRechargeExpireDate() {
+        if (rechargeExpireDate == null){
+            return "";
+        }
+        return rechargeExpireDate.toString();
+    }
+
+    public String getIssueDate() {
+        return issueDate.toLocaleString();
+    }
+
+    public Cost.PERIOD getCurrentPlan() {
+        return currentPlan;
     }
 }
