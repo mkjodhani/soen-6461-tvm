@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.igo.controller.customer.RegisterOpus">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.igo.controller.customer.RegisterOpusController">
     <children>
         <GridPane hgap="5.0" prefHeight="400.0" prefWidth="600.0" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
@@ -33,14 +33,14 @@
             </rowConstraints>
             <children>
                 <Button fx:id="registerOPUSButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#registerOPUS" prefHeight="26.0" prefWidth="291.0" text="Register OPUS" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                <Label prefHeight="137.0" prefWidth="313.0" text="Customer Details:">
+                <Label fx:id="customerDetailsLabel" prefHeight="137.0" prefWidth="313.0" text="Customer Details:">
                     <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </padding>
                 </Label>
                 <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
                     <children>
-                        <Label prefHeight="137.0" prefWidth="313.0" text="First Name">
+                        <Label fx:id="firstNameLabel" prefHeight="137.0" prefWidth="313.0" text="First Name">
                             <padding>
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                             </padding>
@@ -55,7 +55,7 @@
                 </HBox>
                 <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
                     <children>
-                        <Label prefHeight="137.0" prefWidth="313.0" text="Last Name">
+                        <Label fx:id="lastNameLabel" prefHeight="137.0" prefWidth="313.0" text="Last Name">
                             <padding>
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                             </padding>
@@ -76,7 +76,7 @@
                         <Insets bottom="5.0" right="5.0" top="5.0" />
                     </GridPane.margin>
                     <children>
-                        <Label prefHeight="137.0" prefWidth="313.0" text="Date of Birth">
+                        <Label fx:id="dateOfBirthLabel" prefHeight="137.0" prefWidth="313.0" text="Date of Birth">
                             <padding>
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                             </padding>
@@ -114,7 +114,7 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </padding>
                     <children>
-                        <Label prefHeight="137.0" prefWidth="313.0" text="Customer Type">
+                        <Label fx:id="customerTypeLabel" prefHeight="137.0" prefWidth="313.0" text="Customer Type">
                             <padding>
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                             </padding>

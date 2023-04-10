@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.igo.controller.customer.PurchaseTicket">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.igo.controller.customer.PurchaseTicketController">
     <children>
         <GridPane hgap="5.0" prefHeight="400.0" prefWidth="600.0" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
@@ -32,7 +32,7 @@
             </rowConstraints>
             <children>
                 <Button fx:id="purchaseTicketButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#purchaseTicket" prefHeight="26.0" prefWidth="291.0" text="Purchase" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                <Label prefHeight="137.0" prefWidth="313.0" text="Ticket Details:">
+                <Label fx:id="ticketDetails" prefHeight="137.0" prefWidth="313.0" text="Ticket Details:">
                     <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </padding>
@@ -44,13 +44,13 @@
                     <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </padding>
-               <children>
-                        <Label prefHeight="137.0" prefWidth="313.0" text="Ticket Type">
+                    <children>
+                        <Label fx:id="ticketType" prefHeight="137.0" prefWidth="313.0" text="Ticket Type">
                             <padding>
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                             </padding>
                         </Label>
-               </children>
+                    </children>
                 </HBox>
                 <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
                     <padding>
@@ -59,13 +59,13 @@
                     <GridPane.margin>
                         <Insets right="5.0" top="5.0" />
                     </GridPane.margin>
-               <children>
-                        <Label prefHeight="137.0" prefWidth="313.0" text="Price">
+                    <children>
+                        <Label fx:id="priceLabel" prefHeight="137.0" prefWidth="313.0" text="Price">
                             <padding>
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                             </padding>
                         </Label>
-               </children>
+                    </children>
                 </HBox>
                 <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
                     <padding>
