@@ -1,13 +1,12 @@
 package com.igo.controller.customer;
 
 import com.igo.IGoApplication;
-import com.igo.controller.admin.Payment;
+import com.igo.controller.admin.PaymentController;
 import com.igo.models.data.Data;
 import com.igo.models.fares.Cost;
+import com.igo.models.localization.Language;
 import com.igo.models.opus.OPUS;
 import com.igo.models.person.Customer;
-import com.igo.models.ticket.Ticket;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,8 +15,8 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Optional;
 
 /**
@@ -25,8 +24,14 @@ import java.util.Optional;
  * @project
  * @since 22/03/23
  */
-public class RechargeOpus {
-
+public class RechargeOpusController implements Observer {
+    public Label opusIdLabel;
+    public Label firstNameLabel;
+    public Label lastNameLabel;
+    public Label dateOfBirthLabel;
+    public Label rechargeTypeLabel;
+    public Label priceLabel;
+    public Label customerTypeLabel;
     @FXML
     ComboBox<String> rechargeType;
     @FXML
@@ -41,7 +46,10 @@ public class RechargeOpus {
     TextField opusID;
     @FXML
     TextField price;
+    Button closeParentButton = new Button();
     public void initialize(){
+        Language.getReference().addObserver(this);
+        updateLabels();
         customerType.getItems().add(Customer.TYPES.CHILD);
         customerType.getItems().add(Customer.TYPES.STUDENT);
         customerType.getItems().add(Customer.TYPES.ADULT);
@@ -68,7 +76,7 @@ public class RechargeOpus {
 
             OPUS opus = Data.getReference().getOpusHashMap().getOrDefault(opusIDValue,null);
             if (opus == null || customerType == null){
-                IGoApplication.showDialogBox("Error!","No OPUS found!","Please provide valid opus ID.");
+                IGoApplication.showErrorDialogBox("No OPUS found!","Please provide valid opus ID.");
             }
             else{
                 Customer customer = opus.getCustomer();
@@ -81,7 +89,7 @@ public class RechargeOpus {
             }
         }
         catch (Exception e){
-            IGoApplication.showDialogBox("Error!","Something went wrong!",e.getMessage());
+            IGoApplication.showErrorDialogBox("Something went wrong!",e.getMessage());
         }
     }
 
@@ -90,13 +98,13 @@ public class RechargeOpus {
         OPUS opus = Data.getReference().getOpusHashMap().getOrDefault(opusIDValue,null);
         Customer customer = opus.getCustomer();
         if (opus == null){
-            IGoApplication.showDialogBox("Error!","No OPUS found!","Please provide valid opus ID.");
-            return;
+            IGoApplication.showErrorDialogBox("No OPUS found!","Please provide valid opus ID.");
+            clearUserInput();
         }
         String rechargeTypeString = rechargeType.getValue();
         double priceValue =  Cost.getOpusRechargeAmount(getRechargeType(rechargeTypeString),customer.getCustomerType());
         if (priceValue == -1){
-            IGoApplication.showDialogBox("Error!","Plan can not be activated!","This plan is not provided to "+customer.getCustomerType()+".");
+            IGoApplication.showErrorDialogBox("Plan can not be activated!","This plan is not provided to "+customer.getCustomerType()+".");
         }
         else {
             String paymentOptions[] = { "Cash","Cash less" };
@@ -110,15 +118,20 @@ public class RechargeOpus {
                     opus.recharge(getRechargeType(rechargeTypeString));
                     IGoApplication.showDialogBox("Success!","Plan has been activated!","This plan provided to "+customer.getCustomerType()+".");
                     Data.getReference().notifyAllObservers();
+                    this.closeParentButton.fire();
                 }
                 else {
                     Stage stage = new Stage();
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/igo/admin/payment.fxml"));
                     Scene scene = new Scene(fxmlLoader.load(), IGoApplication.getWidth(), IGoApplication.getHeight());
-                    Payment payment = fxmlLoader.getController();
-                    payment.setPaymentFor(Cost.TYPES.TICKET);
-                    payment.setOpusID(opus.getCardId());
-                    payment.setPeriod(getRechargeType(rechargeTypeString));
+                    PaymentController paymentController = fxmlLoader.getController();
+                    paymentController.setPaymentFor(Cost.TYPES.OPUS);
+                    paymentController.setOpusID(opus.getCardId());
+                    paymentController.setPeriod(getRechargeType(rechargeTypeString));
+                    paymentController.getCloseParentButton().setOnAction(e ->{
+                        this.closeParentButton.fire();
+                        stage.close();
+                    });
                     stage.setTitle("Payment");
                     stage.setScene(scene);
                     stage.setResizable(false);
@@ -134,8 +147,8 @@ public class RechargeOpus {
             int opusIDValue = Integer.parseInt(opusID.getText());
             OPUS opus = Data.getReference().getOpusHashMap().getOrDefault(opusIDValue,null);
             if (opus == null){
-                IGoApplication.showDialogBox("Error!","No OPUS found!","Please provide valid opus ID.");
-                return;
+                IGoApplication.showErrorDialogBox("No OPUS found!","Please provide valid opus ID.");
+                clearUserInput();
             }
             else{
                 Customer customer = opus.getCustomer();
@@ -147,7 +160,29 @@ public class RechargeOpus {
         }
         catch (Exception e){
             e.printStackTrace();
-            IGoApplication.showDialogBox("Error!","Something went wrong!",e.getMessage());
+            IGoApplication.showErrorDialogBox("Something went wrong!",e.getMessage());
         }
+    }
+    private void clearUserInput(){
+        firstNameText.setText("");
+        lastNameText.setText("");
+        dobObject.setValue(null);
+        customerType.setValue(null);
+    }
+    public Button getCloseParentButton() {
+        return closeParentButton;
+    }
+    private void updateLabels(){
+        opusIdLabel.setText(Language.getReference().getLabel("opusId"));
+        firstNameLabel.setText(Language.getReference().getLabel("firstName"));
+        lastNameLabel.setText(Language.getReference().getLabel("lastName"));
+        dateOfBirthLabel.setText(Language.getReference().getLabel("birthDate"));
+        rechargeTypeLabel.setText(Language.getReference().getLabel("opusRechargeTypeLabel"));
+        priceLabel.setText(Language.getReference().getLabel("price"));
+        customerTypeLabel.setText(Language.getReference().getLabel("customerType"));
+    }
+    @Override
+    public void update(Observable o, Object arg) {
+        updateLabels();
     }
 }
