@@ -1,13 +1,12 @@
 package com.igo.models.person;
 
-import com.igo.models.data.Data;
+import com.igo.models.tvm.TVM;
 import com.igo.models.fares.Cost;
 import com.igo.models.opus.OPUS;
 import com.igo.models.payment.Card;
 import com.igo.models.ticket.Ticket;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 /**
  * @author mkjodhani
@@ -58,8 +57,8 @@ public class Customer extends User{
     }
     public static Customer  registerCustomer(String firstName, String lastName, LocalDate birthDate, TYPES customerType) {
         Customer customer = new Customer(firstName,lastName,birthDate,customerType);
-        Data data = Data.getReference();
-        data.getCustomerHashMap().put(customer.getUserID(),customer);
+        TVM tvm = TVM.getReference();
+        tvm.getCustomerHashMap().put(customer.getUserID(),customer);
         return customer;
     }
 

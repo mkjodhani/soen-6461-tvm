@@ -1,13 +1,12 @@
 package com.igo.models.opus;
 
-import com.igo.models.data.Data;
+import com.igo.models.tvm.TVM;
 import com.igo.models.fares.Cost;
 import com.igo.models.person.Customer;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Date;
-import java.util.HashMap;
 
 import static java.time.temporal.TemporalAdjusters.nextOrSame;
 /**
@@ -31,10 +30,10 @@ public class OPUS {
         this.cardId = ++ totalOpusCards;
         this.lastRechargeDate = null;
         this.issueDate = new Date();
-        Data.getReference().getOpusHashMap().put(this.cardId,this);
+        TVM.getReference().getOpusHashMap().put(this.cardId,this);
     }
     public static OPUS registerOpus(int userID) {
-        Customer customer = Data.getReference().getCustomerHashMap().getOrDefault(userID,null);
+        Customer customer = TVM.getReference().getCustomerHashMap().getOrDefault(userID,null);
         if (customer == null){
             return null;
         }
@@ -45,7 +44,7 @@ public class OPUS {
         return opus;
     }
     public static boolean isOpusExistsForUser(int userID){
-        for(OPUS opus: Data.getReference().getOpusHashMap().values()){
+        for(OPUS opus: TVM.getReference().getOpusHashMap().values()){
             if(opus.getCustomer().getUserID() == userID){
                 return true;
             }

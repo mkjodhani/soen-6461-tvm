@@ -1,7 +1,7 @@
 package com.igo.controller.admin;
 
 import com.igo.IGoApplication;
-import com.igo.models.data.Data;
+import com.igo.models.tvm.TVM;
 import com.igo.models.fares.Cost;
 import com.igo.models.localization.Language;
 import com.igo.models.person.Customer;
@@ -63,7 +63,7 @@ public class OpusPriceController implements Observer {
         }
         double priceValue = Double.valueOf(price.getText());
         Cost.updateOpusRechargeAmount(opusType,customerType,priceValue);
-        Data.getReference().notifyAllObservers();
+        TVM.getReference().notifyAllObservers();
         IGoApplication.showDialogBox("Success!","Operation performed successfully!","Price has been updated!");
         closeParentButton.fire();
     }

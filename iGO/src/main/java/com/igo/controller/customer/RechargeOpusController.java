@@ -2,7 +2,7 @@ package com.igo.controller.customer;
 
 import com.igo.IGoApplication;
 import com.igo.controller.admin.PaymentController;
-import com.igo.models.data.Data;
+import com.igo.models.tvm.TVM;
 import com.igo.models.fares.Cost;
 import com.igo.models.localization.Language;
 import com.igo.models.opus.OPUS;
@@ -74,7 +74,7 @@ public class RechargeOpusController implements Observer {
             int opusIDValue = Integer.parseInt(opusID.getText());
             String rechargeTypeString = rechargeType.getValue();
 
-            OPUS opus = Data.getReference().getOpusHashMap().getOrDefault(opusIDValue,null);
+            OPUS opus = TVM.getReference().getOpusHashMap().getOrDefault(opusIDValue,null);
             if (opus == null || customerType == null){
                 IGoApplication.showErrorDialogBox("No OPUS found!","Please provide valid opus ID.");
             }
@@ -95,7 +95,7 @@ public class RechargeOpusController implements Observer {
 
     public void rechargeOPUS(ActionEvent actionEvent) throws IOException {
         int opusIDValue = Integer.parseInt(opusID.getText());
-        OPUS opus = Data.getReference().getOpusHashMap().getOrDefault(opusIDValue,null);
+        OPUS opus = TVM.getReference().getOpusHashMap().getOrDefault(opusIDValue,null);
         Customer customer = opus.getCustomer();
         if (opus == null){
             IGoApplication.showErrorDialogBox("No OPUS found!","Please provide valid opus ID.");
@@ -117,7 +117,7 @@ public class RechargeOpusController implements Observer {
                 if(d.getSelectedItem().equals("Cash")){
                     opus.recharge(getRechargeType(rechargeTypeString));
                     IGoApplication.showDialogBox("Success!","Plan has been activated!","This plan provided to "+customer.getCustomerType()+".");
-                    Data.getReference().notifyAllObservers();
+                    TVM.getReference().notifyAllObservers();
                     this.closeParentButton.fire();
                 }
                 else {
@@ -136,7 +136,7 @@ public class RechargeOpusController implements Observer {
                     stage.setScene(scene);
                     stage.setResizable(false);
                     stage.show();
-                    Data.getReference().notifyAllObservers();
+                    TVM.getReference().notifyAllObservers();
                 }
             }
         }
@@ -145,7 +145,7 @@ public class RechargeOpusController implements Observer {
     public void fetchUser(ActionEvent actionEvent) {
         try{
             int opusIDValue = Integer.parseInt(opusID.getText());
-            OPUS opus = Data.getReference().getOpusHashMap().getOrDefault(opusIDValue,null);
+            OPUS opus = TVM.getReference().getOpusHashMap().getOrDefault(opusIDValue,null);
             if (opus == null){
                 IGoApplication.showErrorDialogBox("No OPUS found!","Please provide valid opus ID.");
                 clearUserInput();

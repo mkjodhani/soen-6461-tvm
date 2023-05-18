@@ -1,7 +1,7 @@
 package com.igo.controller.admin;
 
 import com.igo.IGoApplication;
-import com.igo.models.data.Data;
+import com.igo.models.tvm.TVM;
 import com.igo.models.localization.Language;
 import com.igo.models.opus.OPUS;
 import com.igo.models.person.Customer;
@@ -47,7 +47,7 @@ public class AdminController implements Observer {
     private VBox ticketList;
 
     public void initialize(){
-        Data.getReference().addObserver(this);
+        TVM.getReference().addObserver(this);
         Language.getReference().addObserver(this);
         initializeCustomerList();
         initializeTicketList();
@@ -120,7 +120,7 @@ public class AdminController implements Observer {
             tableView.getColumns().add(firstNameCol);
             tableView.getColumns().add(lastNameCol);
             tableView.getColumns().add(birthDateCol);
-            ObservableList<Customer> people = FXCollections.observableArrayList(Data.getReference().getCustomerHashMap().values());
+            ObservableList<Customer> people = FXCollections.observableArrayList(TVM.getReference().getCustomerHashMap().values());
             tableView.setItems(people);
             tableView.setPlaceholder(new Label(Language.getReference().getLabel("noCustomerFoundMessage")));
             if(customerList.getChildren().size()>0){
@@ -158,7 +158,7 @@ public class AdminController implements Observer {
 
             tableView.setEditable(false);
             tableView.setPlaceholder(new Label(Language.getReference().getLabel("noTicketsFoundMessage")));
-            ObservableList<Ticket> tickets = FXCollections.observableArrayList(Data.getReference().getTicketHashMap().values());
+            ObservableList<Ticket> tickets = FXCollections.observableArrayList(TVM.getReference().getTicketHashMap().values());
             tableView.setItems(tickets);
             if(ticketList.getChildren().size()>0){
                 ticketList.getChildren().removeAll(ticketList.getChildren());
@@ -186,7 +186,7 @@ public class AdminController implements Observer {
             tableView.getColumns().add(currentPlanCol);
 
 
-            ObservableList<OPUS> opuses = FXCollections.observableArrayList(Data.getReference().getOpusHashMap().values());
+            ObservableList<OPUS> opuses = FXCollections.observableArrayList(TVM.getReference().getOpusHashMap().values());
             tableView.setItems(opuses);
             tableView.setPlaceholder(new Label(Language.getReference().getLabel("noOpusMessage")));
             if(opusList.getChildren().size()>0){
@@ -221,3 +221,4 @@ public class AdminController implements Observer {
         aboutMenu.setText(Language.getReference().getLabel("aboutMenu"));
     }
 }
+

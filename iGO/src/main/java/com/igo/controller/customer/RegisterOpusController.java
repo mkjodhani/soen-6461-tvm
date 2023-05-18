@@ -1,7 +1,7 @@
 package com.igo.controller.customer;
 
 import com.igo.IGoApplication;
-import com.igo.models.data.Data;
+import com.igo.models.tvm.TVM;
 import com.igo.models.localization.Language;
 import com.igo.models.opus.OPUS;
 import com.igo.models.person.Customer;
@@ -43,15 +43,15 @@ public class RegisterOpusController implements Observer {
     public void registerOPUS(ActionEvent actionEvent) {
         try{
             int customerIDValue = Integer.parseInt(customerID.getText());
-            Customer customer = Data.getReference().getCustomerHashMap().getOrDefault(customerIDValue,null);
+            Customer customer = TVM.getReference().getCustomerHashMap().getOrDefault(customerIDValue,null);
             if (customer == null){
                 IGoApplication.showErrorDialogBox("No Customer found!","Please provide valid customer ID.");
                 clearUserInput();
             }
             else{
                 OPUS opus = new OPUS(customer);
-                Data.getReference().getOpusHashMap().put(opus.getCardId(),opus);
-                Data.getReference().notifyAllObservers();
+                TVM.getReference().getOpusHashMap().put(opus.getCardId(),opus);
+                TVM.getReference().notifyAllObservers();
                 IGoApplication.showDialogBox("Success!","OPUS has been issued successfully!","You can access the OPUS by inserting #"+opus.getCardId()+" wherever required.");
                 closeParentButton.fire();
             }
@@ -63,7 +63,7 @@ public class RegisterOpusController implements Observer {
     public void fetchUser(ActionEvent actionEvent) {
         try{
             int customerIDValue = Integer.parseInt(customerID.getText());
-            Customer customer = Data.getReference().getCustomerHashMap().getOrDefault(customerIDValue,null);
+            Customer customer = TVM.getReference().getCustomerHashMap().getOrDefault(customerIDValue,null);
             if (customer == null){
                 IGoApplication.showErrorDialogBox("No Customer found!","Please provide valid customer ID.");
                 clearUserInput();

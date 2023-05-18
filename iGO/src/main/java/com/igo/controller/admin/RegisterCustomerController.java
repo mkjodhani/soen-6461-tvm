@@ -1,7 +1,7 @@
 package com.igo.controller.admin;
 
 import com.igo.IGoApplication;
-import com.igo.models.data.Data;
+import com.igo.models.tvm.TVM;
 import com.igo.models.localization.Language;
 import com.igo.models.person.Customer;
 import javafx.application.Platform;
@@ -52,7 +52,7 @@ public class RegisterCustomerController implements Observer {
                 return;
             }
             Customer.registerCustomer(firstName,lastName,dobObject.getValue(),customerTypeValue);
-            Data.getReference().notifyAllObservers();
+            TVM.getReference().notifyAllObservers();
             closeParentButton.fire();
             IGoApplication.showDialogBox("Success!","Operation performed successfully!","Customer added successfully!");
         }

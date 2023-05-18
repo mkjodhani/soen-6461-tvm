@@ -1,7 +1,7 @@
 package com.igo.controller.admin;
 
 import com.igo.IGoApplication;
-import com.igo.models.data.Data;
+import com.igo.models.tvm.TVM;
 import com.igo.models.fares.Cost;
 import com.igo.models.localization.Language;
 import javafx.event.ActionEvent;
@@ -47,7 +47,7 @@ public class TicketPriceController implements Observer {
         }
         double priceValue = Double.valueOf(price.getText());
         Cost.updateTicketPriceByTimePeriod(ticketType,priceValue);
-        Data.getReference().notifyAllObservers();
+        TVM.getReference().notifyAllObservers();
         closeParentButton.fire();
         IGoApplication.showDialogBox("Success!","Operation performed successfully!","Price has been updated!");
     }

@@ -1,7 +1,7 @@
 package com.igo.models.ticket;
 
 
-import com.igo.models.data.Data;
+import com.igo.models.tvm.TVM;
 import com.igo.models.fares.Cost;
 import com.igo.models.payment.Card;
 
@@ -28,12 +28,12 @@ public class Ticket {
 
     public static Ticket generateTicketByCash(String areaCode, Cost.PERIOD ticketType) {
         Ticket ticket = new Ticket(areaCode,ticketType);
-        Data.getReference().getTicketHashMap().put(ticket.ticketId,ticket);
+        TVM.getReference().getTicketHashMap().put(ticket.ticketId,ticket);
         return ticket;
     }
     public static Ticket generateTicketByCard(String areaCode, Cost.PERIOD ticketType,Card card) {
         Ticket ticket = new Ticket(areaCode,ticketType,card);
-        Data.getReference().getTicketHashMap().put(ticket.ticketId,ticket);
+        TVM.getReference().getTicketHashMap().put(ticket.ticketId,ticket);
         return ticket;
     }
     private Ticket(String areaCode, Cost.PERIOD ticketType) {
