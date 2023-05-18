@@ -12,16 +12,16 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="root" alignment="CENTER" spacing="10" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.igo.controller.admin.Payment">
-    <Label text="Payment Details" />
+<VBox fx:id="root" alignment="CENTER" spacing="10" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.igo.controller.admin.PaymentController">
+    <Label fx:id="paymentDetailsLabel" text="Payment Details" />
    <AnchorPane prefHeight="200.0" prefWidth="300.0">
       <children>
           <GridPane fx:id="paymentDetails" alignment="CENTER" hgap="10" vgap="10" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-              <Label text="Cardholder Name:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+              <Label fx:id="cardHolderName" text="Cardholder Name:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
               <TextField fx:id="cardholderName" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-              <Label text="Card Number:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+              <Label fx:id="cardNumberLabel" text="Card Number:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
               <TextField fx:id="cardNumber" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-              <Label text="Expiration Date (MM/YY):" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+              <Label fx:id="expirationDate" text="Expiration Date (MM/YY):" GridPane.columnIndex="0" GridPane.rowIndex="3" />
             <HBox prefHeight="26.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
                      <TextField fx:id="expirationMonth" prefWidth="87.0" />
@@ -38,7 +38,7 @@
               <Label text="CVV:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
               <TextField fx:id="cvv" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Button fx:id="makePaymentButton" mnemonicParsing="false" onAction="#makePayment" prefHeight="26.0" prefWidth="176.0" text="Make Payment" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <Label text="Card Type" GridPane.rowIndex="1" />
+            <Label fx:id="cardTypeLabel" text="Card Type" GridPane.rowIndex="1" />
             <ComboBox fx:id="cardType" prefHeight="26.0" prefWidth="176.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <columnConstraints>
                <ColumnConstraints />

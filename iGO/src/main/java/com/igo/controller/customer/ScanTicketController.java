@@ -1,7 +1,7 @@
 package com.igo.controller.customer;
 
 import com.igo.IGoApplication;
-import com.igo.models.data.Data;
+import com.igo.models.tvm.TVM;
 import com.igo.models.localization.Language;
 import com.igo.models.ticket.Ticket;
 import javafx.event.ActionEvent;
@@ -34,7 +34,7 @@ public class ScanTicketController implements Observer {
                 IGoApplication.showErrorDialogBox("Please provide valid information!","Ticket is not provided.");
                 return;
             }
-            Ticket ticket = Data.getReference().getTicketHashMap().getOrDefault(Integer.parseInt(ticketID.getText()),null);
+            Ticket ticket = TVM.getReference().getTicketHashMap().getOrDefault(Integer.parseInt(ticketID.getText()),null);
             if (ticket == null){
                 IGoApplication.showErrorDialogBox("Ticket has not been issued before!","You can try with valid ticket number.");
             }

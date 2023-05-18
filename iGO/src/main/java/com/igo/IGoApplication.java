@@ -16,7 +16,7 @@ public class IGoApplication extends Application {
     public void start(Stage stage) throws IOException {
         this.primaryStage = stage;
         FXMLLoader fxmlLoader = new FXMLLoader(IGoApplication.class.getResource("iGo.fxml"));
-        mainScene = new Scene(fxmlLoader.load(), width, height);
+        mainScene = new Scene(fxmlLoader.load());
         stage.setTitle("iGo");
         stage.setScene(mainScene);
         stage.setResizable(false);
@@ -51,4 +51,12 @@ public class IGoApplication extends Application {
         alert.setContentText(message);
         alert.showAndWait();
     }
+    public static void showErrorDialogBox(String header,String message){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error!");
+        alert.setHeaderText(header);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
 }

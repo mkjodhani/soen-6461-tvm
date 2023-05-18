@@ -20,14 +20,15 @@ public class Card {
     private int cvv;
     private TYPES cardType;
     public static Card getCardByDetails(String cardNumber, String dueDate, int cvv,TYPES cardType){
-        String cardNumberPattern = "^(\\d{4})(\\d{4})(\\d{4})(\\d{4})$";
-        String expireDatePattern = "^(\\d{2})/(\\d{2})$";
-        if(validate(cardNumberPattern,cardNumber) && validate(expireDatePattern,dueDate)){
-            return new Card(cardNumber,dueDate,cvv,cardType);
-        }
-        else{
-            return null;
-        }
+        return new Card(cardNumber,dueDate,cvv,cardType);
+//        String cardNumberPattern = "^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\\d{3})\\d{11})$";
+//        String expireDatePattern = "^(\\d{2})/(\\d{2})$";
+//        if(validate(cardNumberPattern,cardNumber) && validate(expireDatePattern,dueDate)){
+//            return new Card(cardNumber,dueDate,cvv,cardType);
+//        }
+//        else{
+//            return null;
+//        }
     }
     private Card(String cardNumber, String expireDate, int cvv, TYPES cardType) {
         this.cardNumber = cardNumber;

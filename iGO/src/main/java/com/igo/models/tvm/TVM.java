@@ -1,4 +1,4 @@
-package com.igo.models.data;
+package com.igo.models.tvm;
 
 import com.igo.models.opus.OPUS;
 import com.igo.models.person.Customer;
@@ -12,22 +12,22 @@ import java.util.Observable;
  * @project
  * @since 22/03/23
  */
-public class Data extends Observable {
+public class TVM extends Observable {
     private HashMap<Integer, Customer> customerHashMap;
     private HashMap<Integer, OPUS> opusHashMap;
     private HashMap<Integer, Ticket> ticketHashMap;
-    private static Data data;
+    private static TVM TVM;
 
-    private Data() {
+    private TVM() {
         customerHashMap = new HashMap<>();
         opusHashMap = new HashMap<>();
         ticketHashMap = new HashMap<>();
     }
-    public static Data getReference(){
-        if(data == null){
-            data = new Data();
+    public static TVM getReference(){
+        if(TVM == null){
+            TVM = new TVM();
         }
-        return data;
+        return TVM;
     }
 
     public HashMap<Integer, Customer> getCustomerHashMap() {

@@ -12,7 +12,7 @@
    <children>
       <TabPane layoutX="7.0" layoutY="25.0" prefHeight="375.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
         <tabs>
-            <Tab text="Customers">
+            <Tab fx:id="customerTab" text="Customers">
                 <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                         <children>
@@ -21,7 +21,7 @@
                     </AnchorPane>
                 </content>
             </Tab>
-            <Tab text="Opus cards">
+            <Tab fx:id="opusCardTab" text="Opus cards">
                 <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                         <children>
@@ -30,7 +30,7 @@
                     </AnchorPane>
                 </content>
             </Tab>
-            <Tab text="Tickets">
+            <Tab fx:id="ticketsTab" text="Tickets">
                 <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                         <children>
@@ -43,20 +43,20 @@
       </TabPane>
       <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
-          <Menu mnemonicParsing="false" text="Customer">
+          <Menu fx:id="customerMenu" mnemonicParsing="false" text="Customer">
             <items>
-              <MenuItem mnemonicParsing="false" text="Register Customer" onAction="#onRegisterCustomer"/>
+              <MenuItem fx:id="registerCustomerMenu" mnemonicParsing="false" text="Register Customer" onAction="#onRegisterCustomer"/>
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Prices">
+          <Menu fx:id="priceMenu" mnemonicParsing="false" text="Prices">
             <items>
-              <MenuItem mnemonicParsing="false" text="Opus Price"  onAction="#onChangeOpusPrice"/>
-              <MenuItem mnemonicParsing="false" text="Ticket Price"  onAction="#onChangeTicketPrice"/>
+              <MenuItem fx:id="opusPriceMenu" mnemonicParsing="false" text="Opus Price"  onAction="#onChangeOpusPrice"/>
+              <MenuItem fx:id="ticketPriceMenu" mnemonicParsing="false" text="Ticket Price"  onAction="#onChangeTicketPrice"/>
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Help">
+          <Menu fx:id="helpMenu" mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem fx:id="aboutMenu" mnemonicParsing="false" text="About" />
             </items>
           </Menu>
         </menus>
